@@ -28,7 +28,7 @@ class SCellTest {
     @Test
     void testSetData_InvalidFormula() {
         SCell cell = new SCell("=A1++");
-        assertEquals(Ex2Utils.TEXT, cell.getType()); // Invalid formula defaults to text
+        assertEquals(Ex2Utils.TEXT, cell.getType());
         assertEquals("=A1++", cell.getData());
     }
 
@@ -67,8 +67,8 @@ class SCellTest {
 
     @Test
     void testIsFormula_Invalid() {
-        assertFalse(SCell.isFormula("A1+2")); // Missing '='
-        assertFalse(SCell.isFormula("=A1++")); // Invalid syntax
+        assertFalse(SCell.isFormula("A1+2"));
+        assertFalse(SCell.isFormula("=A1++"));
         assertFalse(SCell.isFormula(null));
     }
 
@@ -80,9 +80,9 @@ class SCellTest {
 
     @Test
     void testIsCell_Invalid() {
-        assertFalse(SCell.isCell("A1")); // Missing '='
-        assertFalse(SCell.isCell("=A100")); // Out of range
-        assertFalse(SCell.isCell("=123")); // Missing letter
+        assertFalse(SCell.isCell("A1"));
+        assertFalse(SCell.isCell("=A100"));
+        assertFalse(SCell.isCell("=123"));
     }
 
     @Test
@@ -94,8 +94,8 @@ class SCellTest {
 
     @Test
     void testComputeForm_Invalid() {
-        assertThrows(IllegalArgumentException.class, () -> SCell.computeForm("3+4")); // Missing '='
-        assertThrows(IllegalArgumentException.class, () -> SCell.computeForm("=3/0")); // Division by zero
-        assertThrows(IllegalArgumentException.class, () -> SCell.computeForm(null)); // Null input
+        assertThrows(IllegalArgumentException.class, () -> SCell.computeForm("3+4"));
+        assertThrows(IllegalArgumentException.class, () -> SCell.computeForm("=3/0"));
+        assertThrows(IllegalArgumentException.class, () -> SCell.computeForm(null));
     }
 }

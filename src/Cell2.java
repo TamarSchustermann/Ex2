@@ -7,37 +7,36 @@ package assignments.ex2;
  * Each spreadsheet entry (aka a tamar.Cell) which can be:
  * a number (Double), a String (Text), or a form, the data of each cell is represented as a String (e.g., "abc", "4.2", "=2+3*2", "=A1*(3-A2)".
  */
-public interface tamar.Cell {
+//public interface tamar.Cell {
     /**
      * Return the input text (aka String) this cell was init by (without any computation).
      * @return
      */
-    String getData();
+  //  String getData();
 
 /** Changes the underline string of this cell
  *  */
-    void setData(String s);
+  //  void setData(String s);
 
 
     /**
      * Returns the type of this cell {TEXT,NUMBER, FORM, ERR_CYCLE_FORM, ERR_WRONG_FORM}
      * @return an int value (as defined in Ex2Utils)
      */
-    public int getType();
+  //  public int getType();
 
     /**
      * Changes the type of this tamar.Cell {TEXT,NUMBER, FORM, ERR_CYCLE_FORM, ERR_WRONG_FORM}
      * @param t an int type value as defines in Ex2Utils.
      */
-    public void setType(int t);
+   // public void setType(int t);
     /**
      * Computes the natural order of this entry (cell) in case of a number or a String =0, else 1+ the max of all dependent cells.
      * @return an integer representing the "number of rounds" needed to compute this cell (using an iterative approach)..
      */
-    public int getOrder();
+  //  public int getOrder();
     /**
      * Changes the order of this tamar.Cell
      * @param t
      */
-    public void setOrder(int t);
-}
+   // public void setOrder(int t);

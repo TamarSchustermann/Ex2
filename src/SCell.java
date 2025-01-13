@@ -8,19 +8,12 @@ import javax.script.ScriptException;
 public class SCell implements Cell {
     private String line;
     private int type;
-    private int order; // סדר התא (במידה ויש תלות בין תאים)
-
-    // Add your code here
-
-
+    private int order;
     public SCell(String s) {
-        // Add your code here
-
         setData(s);
-        this.type = Ex2Utils.TEXT; // ברירת מחדל: טקסט
-        this.order = 0; // ברירת מחדל: אין תלות
+        this.type = Ex2Utils.TEXT;
+        this.order = 0;
     }
-
     @Override
     public int getOrder() {
         // Add your code here
@@ -28,19 +21,14 @@ public class SCell implements Cell {
         return order;
         // ///////////////////
     }
-
     //@Override
     @Override
     public String toString() {
         return getData();
     }
-
     @Override
     public void setData(String s) {
-        // Add your code here
         this.line = s;
-
-        // בדיקה האם מדובר במספר, טקסט או נוסחה
         if (isNumber(s)) {
             this.type = Ex2Utils.NUMBER;
         } else if (isFormula(s)) {
@@ -48,29 +36,23 @@ public class SCell implements Cell {
         } else {
             this.type = Ex2Utils.TEXT;
         }
-        /////////////////////
     }
-
     @Override
     public String getData() {
         return line;
     }
-
     @Override
     public int getType() {
         return type;
     }
-
     @Override
     public void setType(int t) {
         type = t;
     }
-
     @Override
     public void setOrder(int t) {
         // Add your code here
         this.order = t;
-
     }
 
     //isNumber//
@@ -89,17 +71,13 @@ public class SCell implements Cell {
     //isFormula//
     public static boolean isFormula(String str) {
         if (str == null || str.isEmpty() || !str.startsWith("=")) {
-            return false; // חייב להתחיל ב"="
+            return false;
         }
-        // מסירים את ה"=" לבדיקה נוחה יותר
         String formula = str.substring(1);
-        // תבנית ל-RegEx שמכסה את הדרישות
         String regex = "^([A-Za-z]\\d{1,2}|\\d+(\\.\\d+)?|\\((.+)\\))([+\\-*/]([A-Za-z]\\d{1,2}|\\d+(\\.\\d+)?|\\((.+)\\)))*$";
-        // בדיקת התאמה ל-RegEx
         if (!formula.matches(regex)) {
             return false;
         }
-        // בדיקת תקינות סוגריים
         return areParenthesesValid(formula);
     }
 
@@ -112,20 +90,18 @@ public class SCell implements Cell {
             } else if (c == ')') {
                 balance--;
                 if (balance < 0) {
-                    return false; // סוגר סוגריים לפני פותח
+                    return false;
                 }
             }
         }
-        return balance == 0; // חייב להסתיים עם מספר מאוזן של סוגריים
+        return balance == 0;
     }
 
     //isCell//
     public static boolean isCell(String str) {
         if (str == null || str.isEmpty()) {
-            return false; // מחרוזת ריקה או null אינה חוקית
+            return false;
         }
-
-        // תבנית לבדיקה: "=" ואחריו אות גדולה/קטנה ומספר בטווח 0-99
         String regex = "^=[A-Za-z](\\d|[1-9]\\d)$";
         return str.matches(regex);
     }
@@ -141,16 +117,10 @@ public class SCell implements Cell {
             String Ex2Utils;
             throw new IllegalArgumentException();
         }
-
-        // הסר את סימן ה"=" מהנוסחה
-        String expression = form.substring(1).replaceAll("\\s+", ""); // מסיר רווחים מיותרים
-
-        // יצירת מנוע לחישוב ביטויים מתמטיים
+        String expression = form.substring(1).replaceAll("\\s+", "");
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByName("JavaScript");
-
         try {
-            // חישוב הביטוי
             Object result = engine.eval(expression);
             return result instanceof Number ? ((Number) result).doubleValue() : null;
         } catch (ScriptException e) {
